@@ -77,7 +77,7 @@ SWITCH_READ
     LDR R1, =GPIOC_BASE
   LDR R2, [R1, #GPIO_IDR]
   ;
-  MOV R2, #0x2000
+  MOV R2, #0x2000 ; user-PB always pressed for remote testing
   ;
   TST R2, #(1<<13)             ; if(PC13==0)
   MOVEQ R0,#0
@@ -87,7 +87,7 @@ SWITCH_READ
     LDR R1, =GPIOC_BASE
   LDR R2, [R1, #GPIO_IDR]
   ;
-  MOV R2, #0x2000
+  MOV R2, #0x2000 ; user-PB always pressed for remote testing
   ;
   TST R2, #(1<<13)             ; if(PC13==0)
   MOVEQ R0,#0

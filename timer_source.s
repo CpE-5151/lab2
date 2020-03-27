@@ -25,7 +25,7 @@
 MEASUREMENT_INIT
   PUSH {R14}
 
-  ; STEP #1: Configure TIM3,CH1 to generate 40kHz signal at 50% duty cycle
+  ; STEP #1: configure TIM3,CH1 to generate 40kHz signal at 50% duty cycle
   ;____________________________________________________________________________
 
   ; (1a) enable clocks
@@ -115,7 +115,7 @@ MEASUREMENT_INIT
   ;___end STEP #1______________________________________________________________
 
 
-  ; STEP #2: Configure TIM4,CH3 to generate 106μs high pulse
+  ; STEP #2: configure TIM4,CH3 to generate 106μs high pulse
   ;____________________________________________________________________________
 
   ; (2a) enable clocks
@@ -222,6 +222,38 @@ MEASUREMENT_INIT
   ;___end STEP #2______________________________________________________________
 
 
+  ; STEP #4: configure TIM4 high pulse to gate the TIM3 signal output
+  ;____________________________________________________________________________
+
+  ; (4a) set TRGO output for TIM4 to CH3
+  ;______________________________________________
+  LDR R0, =TIM4_BASE
+  LDR R1, [R0, #TIM_CR2]
+  BIC R1, R1, #(7<<4)
+  ORR R1, R1, #(6<<4)     ; set MMS = '110' (OC3REF as TRGO)
+  STR R1, [R0, #TIM_CR2]
+
+
+  ; (4b) set TIM3 output to be gated by TIM4
+  ;______________________________________________
+
+  LDR R0, =TIM3_BASE
+
+  ; set TIM3 slave mode to gated
+  LDR R1, [R0, #TIM_SMCR]
+  BIC R1, R1, #15
+  ORR R1, R1, #5           ; set slave mode = '0101' (gated)
+  STR R1, [R0, #TIM_SMCR]
+
+  ; set TIM3 trigger source to ITR3 (TIM4)  
+  LDR R1, [R0, #TIM_SMCR]
+  BIC R1, R1, #(7<<4)
+  ORR R1, R1, #(3<<4)       ; set trigger source = '011' (ITR3)
+  STR R1, [R0, #TIM_SMCR]
+  
+  ;___end STEP #4______________________________________________________________
+
+
   POP {R14}
   BX R14
   
@@ -235,7 +267,8 @@ MEASUREMENT_INIT
 MEASUREMENT
   PUSH {R14}
 
-  ; Start the Timers
+  ; STEP #3: reset TIM4 and TIM3 when user-PB is pressed
+  ;____________________________________________________________________________
   MOV R1, #1
   LDR R0, =TIM4_BASE
   STR R1, [R0, #TIM_EGR]  ; reset TIM4
