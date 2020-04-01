@@ -395,7 +395,7 @@ MEASUREMENT_INIT
   ; (6b) configure PA5 as TIM2,CH1
   ;______________________________________________
 
-  LDR R0, =GPIOD_BASE
+  LDR R0, =GPIOA_BASE
 
   ; set PA5 to alt-func 1 (TIM2,CH1)
   LDR R1, [R0, #GPIO_MODER]
@@ -493,10 +493,34 @@ MEASUREMENT
   LDR R0, =TIM3_BASE
   STR R1, [R0, #TIM_EGR]  ; reset TIM3
 
-  ; Wait for Input Capture
-  NOP
-  NOP
 
+ ; STEP #7: echo pulse input capture
+ ;____________________________________________________________________________
+  
+  MOV R2, #10000  ; loop counter
+
+  LDR R0, =TIM2_BASE
+
+ECHO_CHECK
+
+  ; exit if the return echo takes too long
+  CMP R2, #0
+  BEQ NO_ECHO
+  SUB R2, R2, #1
+
+  ; check TIM2 for input capture (CC1IF set)
+  LDR R1, [R0, #TIM_SR]
+  TST R1, #(1<<1)
+  BEQ ECHO_CHECK
+
+  ; return TIM2 capture value
+  LDR R0, [R0, #TIM_CCR1]
+  B ECHO_CHECK_DONE
+
+NO_ECHO
+  MOV R0, #0xFFFFFFFF ; return -1
+
+ECHO_CHECK_DONE
   POP {R14}
   BX R14
   

@@ -388,14 +388,14 @@
               <FilePath>.\switch_source.h</FilePath>
             </File>
             <File>
-              <FileName>timer_source.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\timer_source.s</FilePath>
-            </File>
-            <File>
               <FileName>switch_source.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\switch_source.s</FilePath>
+            </File>
+            <File>
+              <FileName>timer_source.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\timer_source.s</FilePath>
             </File>
           </Files>
         </Group>

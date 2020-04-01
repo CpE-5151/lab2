@@ -152,25 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>0</LineNumber>
+          <LineNumber>124</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231804</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>0x080036FC</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>128</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134231644</Address>
+          <Address>134231622</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -179,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\RTE\Device\STM32L4R5ZITx\STCubeGenerated\Src\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Exp_2\RTE/Device/STM32L4R5ZITx/STCubeGenerated/Src/main.c\128</Expression>
+          <Expression>\\Exp_2\RTE/Device/STM32L4R5ZITx/STCubeGenerated/Src/main.c\124</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
@@ -238,6 +222,10 @@
           <WinId>35900</WinId>
         </Entry>
         <Entry>
+          <Name>System Viewer\TIM2</Name>
+          <WinId>35899</WinId>
+        </Entry>
+        <Entry>
           <Name>System Viewer\TIM3</Name>
           <WinId>35905</WinId>
         </Entry>
@@ -285,8 +273,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\timer_source.s</PathWithFileName>
-      <FilenameWithoutPath>timer_source.s</FilenameWithoutPath>
+      <PathWithFileName>.\switch_source.s</PathWithFileName>
+      <FilenameWithoutPath>switch_source.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -297,8 +285,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\switch_source.s</PathWithFileName>
-      <FilenameWithoutPath>switch_source.s</FilenameWithoutPath>
+      <PathWithFileName>.\timer_source.s</PathWithFileName>
+      <FilenameWithoutPath>timer_source.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
