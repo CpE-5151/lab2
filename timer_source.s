@@ -472,7 +472,7 @@ MEASUREMENT_INIT
   BX R14
   
 ;***************************************************************************************
-;      void MEASUREMENT(void);
+;      int MEASUREMENT(void);
 ;      Delays using a loop that is about 1ms long, repeated until value == 0.
 ;**************************************************************************************
 

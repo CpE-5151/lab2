@@ -56,6 +56,7 @@ static void MX_LPUART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 extern void MEASUREMENT_INIT(void);
 extern uint32_t MEASUREMENT(void);
+extern uint32_t CONVERT_MEASUREMENT(int);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -128,6 +129,7 @@ int main(void)
 			   meas_output=MEASUREMENT();
 		}
     /* USER CODE BEGIN 3 */
+    meas_output = CONVERT_MEASUREMENT(meas_output);
   }
   /* USER CODE END 3 */
 }

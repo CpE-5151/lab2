@@ -397,6 +397,11 @@
               <FileType>2</FileType>
               <FilePath>.\timer_source.s</FilePath>
             </File>
+            <File>
+              <FileName>conversion_source.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\conversion_source.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
