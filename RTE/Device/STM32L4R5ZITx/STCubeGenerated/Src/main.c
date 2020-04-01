@@ -75,15 +75,13 @@ int main(void)
    char print_buf[50];
 	 uint16_t feet, frac, inches;
 	 uint8_t input;
-	 uint32_t meas_output;
+	 uint32_t meas_output = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
-
 
   /* Configure the system clock */
   SystemClock_Config();
@@ -103,18 +101,6 @@ int main(void)
 	
   /* USER CODE BEGIN 2 */
   HAL_UART_Transmit(&hlpuart1, Header, 30, 100);
-	
-	feet=6;     /*** This can be removed ***/
-	frac=15;    /*** This can be removed ***/
-	inches=1;   /*** This can be removed ***/
-	
-	sprintf(print_buf,"%u.%2.2u feet \n\r  ", feet,frac);   /*** This can be removed ***/
-	
-	HAL_UART_Transmit(&hlpuart1, (uint8_t *)print_buf, 12, 100);  /*** This can be removed ***/
-	
-	sprintf(print_buf,"%u feet %u inches \n\r  ", feet,inches);   /*** This can be removed ***/
-	
-	HAL_UART_Transmit(&hlpuart1, (uint8_t *)print_buf, 18, 100);  /*** This can be removed ***/
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -130,6 +116,11 @@ int main(void)
 		}
     /* USER CODE BEGIN 3 */
     meas_output = CONVERT_MEASUREMENT(meas_output);
+
+    /* STEP #9: print distance measurement in feet */
+    feet = meas_output >> 8;
+    inches = ( (meas_output & 0xFF) * 100 ) / 256;
+    sprintf(print_buf, "%u.%2.2u feet\n", feet, inches);
   }
   /* USER CODE END 3 */
 }

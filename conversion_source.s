@@ -15,7 +15,10 @@
 ;**************************************************************************************
 
     EXPORT CONVERT_MEASUREMENT
-      
+
+; STEP #8: convert TIM2 CCR1 counts to distance measurement in q8 format
+;____________________________________________________________________________   
+
 CONVERT_MEASUREMENT
   PUSH {R14}
 
