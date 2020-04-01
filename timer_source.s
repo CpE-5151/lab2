@@ -372,6 +372,102 @@ MEASUREMENT_INIT
   ;___end STEP #5______________________________________________________________
 
 
+  ;
+  ; STEP #6: configure TIM2,CH1 
+  ;____________________________________________________________________________
+
+  ; (6a) enable clocks
+  ;______________________________________________
+
+  LDR R0, =RCC_BASE
+
+  ; enable clock for GPIOA
+  LDR R1, [R0, #RCC_AHB2ENR]
+  ORR R1, R1, #(RCC_AHB2ENR_GPIOAEN)
+  STR R1, [R0, #RCC_AHB2ENR]
+
+  ; enable clock for TIM2
+  LDR R1, [R0, #RCC_APB1ENR1]
+  ORR R1, R1, #(RCC_APB1ENR1_TIM2EN)
+  STR R1, [R0, #RCC_APB1ENR1]
+
+
+  ; (6b) configure PA5 as TIM2,CH1
+  ;______________________________________________
+
+  LDR R0, =GPIOD_BASE
+
+  ; set PA5 to alt-func 1 (TIM2,CH1)
+  LDR R1, [R0, #GPIO_MODER]
+  BIC R1, R1, #(3 << (2*5))
+  ORR R1, R1, #(2 << (2*5))  ; set MODE = '10' (alt-func)
+  STR R1, [R0, #GPIO_MODER]
+
+  LDR R1, [R0, #GPIO_AFRL]
+  BIC R1, R1, #(15 << (4*5))
+  ORR R1, R1, #(1 << (4*5))   ; set AF = '01' (TIM2,CH1)
+  STR R1, [R0, #GPIO_AFRL]
+  
+  ; disable pull-up / pull-down resistors for PA5
+  LDR R1, [R0, #GPIO_PUPDR]
+  BIC R1, R1, #(3 << (2*5))  ; set PU-PD = '00' (disabled)
+  STR R1, [R0, #GPIO_PUPDR]
+
+
+  ; (6c) set TIM2,CH1 to Input TI1 mode (no filter, no prescale)
+  ;______________________________________________
+
+  LDR R0, =TIM2_BASE
+  LDR R1, [R0, #TIM_CCMR1]
+  BIC R1, R1, #(3<<0)
+  ORR R1, R1, #1              ; set CC1S = '01'   (capture on CH1)
+  BIC R1, R1, #(3<<2)         ; set IC1PSC = '00' (no prescale)
+  BIC R1, R1, #(15<<4)        ; set IC1F = '0000' (no filter)
+  STR R1, [R0, #TIM_CCMR1]
+
+
+  ; (6d) enable TIM2,CH1 input capture (rising or falling edge)
+  ;______________________________________________
+
+  LDR R1, [R0, #TIM_CCER]
+  ORR R1, R1, #(1<<0)       ; CC1E = '1' (enabled)
+  ORR R1, R1, #(1<<1)       ; CC1P = '1'
+  ORR R1, R1, #(1<<3)       ; CC1NP = '1'
+  STR R1, [R0, #TIM_CCER]
+
+
+  ; (6e) enable TIM2
+  ;______________________________________________
+
+  LDR R1, [R0, #TIM_CR1]
+  ORR R1, R1, #(1<<0)       ; CEN = '1' (enabled)
+  STR R1, [R0, #TIM_CR1]
+
+
+  ; (6f) configure TIM3 to trigger TIM2
+  ;______________________________________________
+
+  LDR R1, [R0, #TIM_SMCR]
+
+  ; set TIM2 slave mode to 'trigger'
+  BIC R1, R1, #15
+  ORR R1, R1, #6      ; slave mode = '0110' (trigger)
+
+  ; set TIM2 trigger source to ITR2 (TIM3)
+  BIC R1, R1, #(7<<4)
+  ORR R1, R1, #(2<<4) ; trigger source = '010' (ITR2)
+
+  ; set TRGO for TIM2 to CH3
+  LDR R1, [R0, #TIM_CR2]
+  BIC R1, R1, #(7<<4)
+  ORR R1, R1, #(6<<4)     ; set MMS = '110' (OC3REF as TRGO)
+  STR R1, [R0, #TIM_CR2]
+
+  STR R1, [R0, #TIM_SMCR]
+  
+  ;___end STEP #6______________________________________________________________
+
+
   POP {R14}
   BX R14
   
@@ -385,13 +481,15 @@ MEASUREMENT_INIT
 MEASUREMENT
   PUSH {R14}
 
-  ; STEP #3: reset TIM5, TIM4, and TIM3 when user-PB is pressed
+  ; STEP #3: reset TIM5, TIM4, TIM2, and TIM3 when user-PB is pressed
   ;____________________________________________________________________________
   MOV R1, #1
   LDR R0, =TIM5_BASE
   STR R1, [R0, #TIM_EGR]  ; reset TIM5
   LDR R0, =TIM4_BASE
   STR R1, [R0, #TIM_EGR]  ; reset TIM4
+  LDR R0, =TIM2_BASE
+  STR R1, [R0, #TIM_EGR]  ; reset TIM2
   LDR R0, =TIM3_BASE
   STR R1, [R0, #TIM_EGR]  ; reset TIM3
 
