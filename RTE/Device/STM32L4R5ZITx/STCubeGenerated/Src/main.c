@@ -115,12 +115,19 @@ int main(void)
 			   meas_output=MEASUREMENT();
 		}
     /* USER CODE BEGIN 3 */
-    meas_output = CONVERT_MEASUREMENT(meas_output);
+    if(meas_output != 0xFFFFFFFF)
+    {
+      meas_output = CONVERT_MEASUREMENT(meas_output);
 
-    /* STEP #9: print distance measurement in feet */
-    feet = meas_output >> 8;
-    inches = ( (meas_output & 0xFF) * 100 ) / 256;
-    sprintf(print_buf, "%u.%2.2u feet\n", feet, inches);
+      /* STEP #9: print distance measurement in feet */
+      feet = meas_output >> 8;
+      inches = ( (meas_output & 0xFF) * 100 ) / 256;
+      sprintf(print_buf, "%u.%2.2u feet\n", feet, inches);
+    }
+    else
+    {
+       sprintf(print_buf, "%s\n", "ERROR: no echo detected");
+    }
   }
   /* USER CODE END 3 */
 }
