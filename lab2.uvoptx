@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>111</LineNumber>
+          <LineNumber>115</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231702</Address>
+          <Address>134231724</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\RTE\Device\STM32L4R5ZITx\STCubeGenerated\Src\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Exp_2\RTE/Device/STM32L4R5ZITx/STCubeGenerated/Src/main.c\111</Expression>
+          <Expression>\\Exp_2\RTE/Device/STM32L4R5ZITx/STCubeGenerated/Src/main.c\115</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
