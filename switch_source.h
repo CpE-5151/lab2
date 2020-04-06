@@ -4,9 +4,7 @@
   *   Founction prototypes for the switch_source.s source code
   *                   
   ******************************************************************************
-  *   Project Team Members: Roger Younger
-  *
-  *    Version 1.0      Mar. 5, 2020
+  *   Project Team Members: Albert Perlman
   *
   ******************************************************************************
   */

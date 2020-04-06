@@ -1,11 +1,8 @@
 ;********************************************************************************************
 ;       switch_source.s
-;       Switch Assembly Code from experiment #1
+;       Switch Assembly Code from experiment #2
 ;
-;       Project Team Members: Roger Younger
-;
-;
-;       Version 1.0      Mar. 5, 2020
+;       Project Team Members: Albert Perlman
 ;
 ;********************************************************************************************
 
